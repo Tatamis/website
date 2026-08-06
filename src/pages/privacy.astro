@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../config";
+---
+
+<BaseLayout title="Privacy — CMPC" description="Privacy information for the CMPC contact form.">
+  <article class="legal-page shell">
+    <p class="section-index">[PRIVACY]</p>
+    <h1>Contact form privacy.</h1>
+    <p>
+      The contact form collects the information you enter so the message can be answered.
+      Delivery is handled by FormSubmit. Do not submit passwords, access tokens, private logs,
+      or other confidential material through this form.
+    </p>
+    <p>
+      To ask about a submitted message or request deletion, email
+      <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+    </p>
+    <a class="button button-secondary" href="/contact">Return to contact <span aria-hidden="true">↗</span></a>
+  </article>
+</BaseLayout>

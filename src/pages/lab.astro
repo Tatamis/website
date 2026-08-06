@@ -1,0 +1,89 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const eventBars = [28, 44, 34, 62, 49, 77, 66, 88, 71, 96, 79, 86];
+const activity = [
+  { time: "14:02:18", source: "Honeypot", event: "Credential probe grouped", result: "Captured" },
+  { time: "14:01:44", source: "Replay Lab", event: "Expected detection evaluated", result: "Passed" },
+  { time: "13:59:07", source: "Security Hub", event: "Indicator context refreshed", result: "Enriched" },
+  { time: "13:57:31", source: "Replay Lab", event: "Field mapping difference", result: "Review" },
+];
+---
+
+<BaseLayout
+  title="Project Lab — CMPC"
+  description="An illustrative view of outputs produced by CMPC security projects."
+>
+  <div class="lab shell">
+    <header class="page-hero lab-hero">
+      <div>
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Project lab / illustrative dataset</p>
+        <h1>Outputs, not empty dashboards.</h1>
+      </div>
+      <p>
+        This page demonstrates how project results can be presented. No production
+        telemetry, client data, or live credentials are used.
+      </p>
+    </header>
+
+    <section class="lab-grid" aria-label="Project output demonstration">
+      <article class="lab-panel lab-panel-wide">
+        <header class="panel-head"><span>EVENT VOLUME / 12H</span><span class="live-pill">DEMO DATA</span></header>
+        <div class="chart-area">
+          <div class="chart-scale" aria-hidden="true"><span>1.2K</span><span>800</span><span>400</span><span>0</span></div>
+          <div class="chart-bars" aria-label="Illustrative event volume bar chart">
+            {
+              eventBars.map((height, index) => (
+                <span style={`--bar-height:${height}%`}><i>{String(index + 1).padStart(2, "0")}:00</i></span>
+              ))
+            }
+          </div>
+        </div>
+      </article>
+
+      <article class="lab-panel metric-panel">
+        <header class="panel-head"><span>HONEYPOT LAB</span><span>01</span></header>
+        <div class="metric-main"><strong>1,284</strong><span>captured events</span></div>
+        <dl>
+          <div><dt>Sessions</dt><dd>117</dd></div>
+          <div><dt>Patterns</dt><dd>23</dd></div>
+          <div><dt>Review</dt><dd>08</dd></div>
+        </dl>
+      </article>
+
+      <article class="lab-panel metric-panel">
+        <header class="panel-head"><span>REPLAY LAB</span><span>02</span></header>
+        <div class="metric-main"><strong>91%</strong><span>validation pass rate</span></div>
+        <dl>
+          <div><dt>Test cases</dt><dd>42</dd></div>
+          <div><dt>Passed</dt><dd>38</dd></div>
+          <div><dt>Review</dt><dd>04</dd></div>
+        </dl>
+      </article>
+
+      <article class="lab-panel lab-panel-wide activity-panel">
+        <header class="panel-head"><span>RECENT PROJECT ACTIVITY</span><span>ILLUSTRATIVE</span></header>
+        <div class="activity-table" role="table" aria-label="Illustrative project activity">
+          <div class="activity-row activity-head" role="row">
+            <span role="columnheader">Time</span><span role="columnheader">Project</span><span role="columnheader">Event</span><span role="columnheader">Result</span>
+          </div>
+          {
+            activity.map((item) => (
+              <div class="activity-row" role="row">
+                <span role="cell">{item.time}</span>
+                <span role="cell">{item.source}</span>
+                <span role="cell">{item.event}</span>
+                <span role="cell" class:list={[item.result === "Review" ? "result-review" : "result-ok"]}>{item.result}</span>
+              </div>
+            ))
+          }
+        </div>
+      </article>
+    </section>
+
+    <aside class="lab-note">
+      <span>DATA BOUNDARY</span>
+      <p>Every value on this page is demonstrative. A public deployment should expose only intentionally public, read-only project data.</p>
+    </aside>
+  </div>
+</BaseLayout>

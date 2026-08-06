@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../config";
+---
+
+<BaseLayout title="Contact — CMPC" description="Start a conversation about a security project with CMPC.">
+  <div class="contact-page shell">
+    <header class="page-hero contact-hero">
+      <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Project contact</p>
+      <h1>Start with the project.</h1>
+      <p>
+        Share the outcome, the constraints, and what a useful result should look like.
+        The form sends directly to <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+      </p>
+    </header>
+
+    <section class="contact-layout" aria-label="Project contact form">
+      <aside>
+        <p class="section-index">[A USEFUL BRIEF]</p>
+        <ol>
+          <li><span>01</span>What needs to be built or tested?</li>
+          <li><span>02</span>What constraints already exist?</li>
+          <li><span>03</span>What would make the result useful?</li>
+        </ol>
+        <div class="direct-email">
+          <span>DIRECT EMAIL</span>
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email} ↗</a>
+        </div>
+      </aside>
+
+      <form
+        id="contact-form"
+        class="contact-form"
+        action={`https://formsubmit.co/${siteConfig.email}`}
+        method="POST"
+        data-endpoint={siteConfig.formEndpoint}
+        data-email={siteConfig.email}
+      >
+        <input type="hidden" name="_subject" value="New project enquiry from cmpc.ro" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="text" name="_honey" class="honeypot-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <div class="form-row">
+          <label><span>Name</span><input name="name" type="text" autocomplete="name" required /></label>
+          <label><span>Email</span><input name="email" type="email" autocomplete="email" required /></label>
+        </div>
+
+        <div class="form-row">
+          <label><span>Organisation <small>optional</small></span><input name="organisation" type="text" autocomplete="organization" /></label>
+          <label>
+            <span>Project type</span>
+            <select name="project_type" required>
+              <option value="" selected disabled>Select one</option>
+              <option>Security platform</option>
+              <option>Detection validation</option>
+              <option>Research system</option>
+              <option>Project collaboration</option>
+              <option>Other</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          <span>Project brief</span>
+          <textarea name="message" rows="7" minlength="20" placeholder="What are you trying to build, test, or understand?" required></textarea>
+        </label>
+
+        <label class="consent-field">
+          <input name="consent" type="checkbox" value="yes" required />
+          <span>I agree that the information entered here is used to answer this message.</span>
+        </label>
+
+        <div class="form-submit-row">
+          <button class="button button-primary" type="submit">Send project brief <span aria-hidden="true">↗</span></button>
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+        </div>
+        <p class="form-note">Form delivery is handled by FormSubmit. Do not include passwords, API keys, logs, or confidential data.</p>
+      </form>
+    </section>
+  </div>
+</BaseLayout>
+<script is:inline src="/contact.js" defer></script>

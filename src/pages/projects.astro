@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
+---
+
+<BaseLayout
+  title="Projects — CMPC"
+  description="Security platforms, research systems, and validation projects from CMPC."
+>
+  <header class="page-hero shell">
+    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Project archive / 2026</p>
+    <h1>Built around problems, not a list of tools.</h1>
+    <p>Each project file starts with the outcome, then shows the system designed to reach it.</p>
+  </header>
+
+  <nav class="project-jump shell" aria-label="Project archive index">
+    {
+      projects.map((project) => (
+        <a href={`/projects/${project.slug}`}>
+          <span>{project.index}</span>
+          <strong>{project.title}</strong>
+          <small>{project.status}</small>
+        </a>
+      ))
+    }
+  </nav>
+
+  <section class="section shell" aria-labelledby="archive-title">
+    <div class="section-heading">
+      <p class="section-index">[ALL PROJECTS]</p>
+      <h2 id="archive-title">The current project archive.</h2>
+    </div>
+    <div class="archive-grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <section class="contact-cta shell" aria-labelledby="project-contact-title">
+    <div>
+      <p class="section-index">[NEXT PROJECT]</p>
+      <h2 id="project-contact-title">Bring the problem. Start from there.</h2>
+    </div>
+    <a class="button button-primary" href="/contact">Send a project brief <span aria-hidden="true">↗</span></a>
+  </section>
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+  featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+---
+
+<article class:list={["project-card", featured && "project-card-featured"]}>
+  <header>
+    <span>{project.index}</span>
+    <span>{project.status}</span>
+  </header>
+  <div class="project-card-body">
+    <p class="project-category">{project.category}</p>
+    <h3>{project.title}</h3>
+    <p>{project.summary}</p>
+    <ul aria-label="Technology stack">
+      {project.stack.slice(0, 4).map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+  <a href={`/projects/${project.slug}`}>
+    Open project file <span aria-hidden="true">↗</span>
+  </a>
+</article>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://cmpc.ro/</loc></url>
+  <url><loc>https://cmpc.ro/projects</loc></url>
+  <url><loc>https://cmpc.ro/projects/security-hub</loc></url>
+  <url><loc>https://cmpc.ro/projects/honeypot-lab</loc></url>
+  <url><loc>https://cmpc.ro/projects/detection-replay</loc></url>
+  <url><loc>https://cmpc.ro/projects/local-sentinel</loc></url>
+  <url><loc>https://cmpc.ro/projects/osint-graph</loc></url>
+  <url><loc>https://cmpc.ro/lab</loc></url>
+  <url><loc>https://cmpc.ro/contact</loc></url>
+  <url><loc>https://cmpc.ro/privacy</loc></url>
+</urlset>

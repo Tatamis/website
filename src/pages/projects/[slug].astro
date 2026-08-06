@@ -1,0 +1,90 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { projects, type Project } from "../../data/projects";
+
+export const getStaticPaths = (() =>
+  projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const projectPosition = projects.findIndex((item) => item.slug === project.slug);
+const nextProject = projects[(projectPosition + 1) % projects.length];
+---
+
+<BaseLayout title={`${project.title} — CMPC`} description={project.summary}>
+  <article class="project-detail shell">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/projects">Projects</a><span aria-hidden="true">/</span><span>{project.index}</span>
+    </nav>
+
+    <header class="project-detail-hero">
+      <div>
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>{project.category}</p>
+        <h1>{project.title}</h1>
+      </div>
+      <div class="project-meta">
+        <span>STATUS</span><strong>{project.status}</strong>
+        <span>PROJECT FILE</span><strong>{project.index} / {String(projects.length).padStart(2, "0")}</strong>
+      </div>
+    </header>
+
+    <p class="project-detail-summary">{project.summary}</p>
+
+    <section class="project-narrative" aria-label="Project rationale">
+      <div>
+        <p class="section-index">[THE CHALLENGE]</p>
+        <p>{project.challenge}</p>
+      </div>
+      <div>
+        <p class="section-index">[THE APPROACH]</p>
+        <p>{project.approach}</p>
+      </div>
+    </section>
+
+    <section class="project-system" aria-labelledby="system-title">
+      <div class="section-heading">
+        <p class="section-index">[SYSTEM]</p>
+        <h2 id="system-title">Project architecture.</h2>
+      </div>
+      <ol class="architecture-list">
+        {
+          project.architecture.map((item, index) => (
+            <li><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong></li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="project-output-grid">
+      <div>
+        <p class="section-index">[OUTPUTS]</p>
+        <ul>{project.outputs.map((item) => <li>{item}</li>)}</ul>
+      </div>
+      <div>
+        <p class="section-index">[BUILDING BLOCKS]</p>
+        <ul class="stack-list">{project.stack.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    </section>
+
+    <footer class="project-detail-footer">
+      {
+        project.repository ? (
+          <a class="button button-secondary" href={project.repository}>View repository <span aria-hidden="true">↗</span></a>
+        ) : (
+          <a class="button button-secondary" href={`/contact?project=${project.slug}`}>Discuss this project <span aria-hidden="true">↗</span></a>
+        )
+      }
+      <a class="next-project" href={`/projects/${nextProject.slug}`}>
+        <small>NEXT PROJECT / {nextProject.index}</small>
+        <strong>{nextProject.title} <span aria-hidden="true">↗</span></strong>
+      </a>
+    </footer>
+  </article>
+</BaseLayout>
